@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEXORA — Our Work Section (T-05 Demo)</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+    />
+    <style>
+      /* ─── NEXORA Brand Tokens ─── */
+      :root {
+        --brand-purple:   #9581f9;
+        --brand-pink:     #d571be;
+        --brand-dark:     #2f1f4e;
+        --brand-darker:   #1a1030;
+        --brand-card-bg:  #2f1f4e;
+        --grad-cta:       linear-gradient(90deg, #4f2cd9, #8d2ce2);
+        --grad-text:      linear-gradient(to right, #9581f9 0%, #d571be 100%);
+      }
+
+      body {
+        background-color: var(--brand-darker);
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      /* ─── Section ─── */
+      .section-work {
+        min-height: 100vh;
+        background-color: #1a1030;
+        padding: 80px 0 60px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* subtle radial glow behind the heading */
+      .section-work::before {
+        content: "";
+        position: absolute;
+        top: -120px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 700px;
+        height: 400px;
+        background: radial-gradient(ellipse at center, rgba(149,129,249,.15) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      /* ─── Section header ─── */
+      .work-eyebrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .work-eyebrow h5 {
+        color: var(--brand-purple);
+        margin: 0;
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      #workHeadText {
+        font-size: 48px;
+        color: #fff;
+        text-align: center;
+      }
+      .grad-text {
+        background: var(--grad-text);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      #workSubText {
+        text-align: center;
+        color: rgba(255,255,255,.55);
+        max-width: 480px;
+        margin: 0 auto 48px;
+        line-height: 1.7;
+      }
+
+      /* ─── Project Cards ─── */
+      .project-card {
+        background: var(--brand-card-bg);
+        border: 1px solid rgba(149,129,249,.2);
+        border-radius: 16px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: border-color .3s;
+        margin-bottom: 24px;
+      }
+      .project-card:hover {
+        border-color: rgba(149,129,249,.6);
+      }
+
+      .card-thumb {
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        position: relative;
+        overflow: hidden;
+      }
+      /* unique gradient per card via inline style added below */
+
+      .card-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: rgba(255,255,255,.12);
+        backdrop-filter: blur(8px);
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-size: 11px;
+        color: #fff;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .card-body-custom {
+        padding: 20px;
+      }
+      .card-body-custom h5 {
+        color: #fff;
+        margin-bottom: 6px;
+        font-size: 17px;
+      }
+      .card-body-custom p {
+        color: rgba(255,255,255,.5);
+        font-size: 13px;
+        margin-bottom: 12px;
+        line-height: 1.6;
+      }
+      .card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tag {
+        background: rgba(149,129,249,.15);
+        color: var(--brand-purple);
+        border-radius: 20px;
+        padding: 3px 10px;
+        font-size: 11px;
+      }
+
+      /* ─── CTA Row ─── */
+      #workCTA {
+        text-align: center;
+        padding-top: 16px;
+      }
+      .btn-cta {
+        background: var(--grad-cta);
+        border: none;
+        border-radius: 13px;
+        color: #fff;
+        padding: 14px 40px;
+        font-size: 17px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+      }
+      .btn-cta:hover { opacity: .9; }
+
+      #workFootNote {
+        color: rgba(255,255,255,.3);
+        font-size: 13px;
+        margin-top: 12px;
+      }
+
+      /* ─── T-05 Debug Panel (shows the concept visually) ─── */
+      .debug-panel {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(26,16,48,.9);
+        border: 1px solid rgba(149,129,249,.3);
+        border-radius: 12px;
+        padding: 14px 18px;
+        color: rgba(255,255,255,.7);
+        font-size: 12px;
+        z-index: 9999;
+        min-width: 210px;
+        backdrop-filter: blur(10px);
+      }
+      .debug-panel h6 {
+        color: var(--brand-purple);
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .tl-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+      }
+      .tl-label { width: 90px; color: rgba(255,255,255,.5); }
+      .tl-bar-bg {
+        flex: 1;
+        height: 5px;
+        background: rgba(255,255,255,.1);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .tl-bar-fill {
+        height: 100%;
+        border-radius: 10px;
+        width: 0%;
+        transition: width .1s linear;
+      }
+      .fill-header { background: var(--brand-purple); }
+      .fill-cards  { background: var(--brand-pink); }
+      .fill-cta    { background: linear-gradient(90deg,var(--brand-purple),var(--brand-pink)); }
+      .fill-master { background: #fff; }
+
+      .replay-btn {
+        width: 100%;
+        margin-top: 10px;
+        background: rgba(149,129,249,.15);
+        border: 1px solid rgba(149,129,249,.3);
+        border-radius: 8px;
+        color: var(--brand-purple);
+        font-size: 12px;
+        padding: 5px 0;
+        cursor: pointer;
+      }
+      .replay-btn:hover { background: rgba(149,129,249,.25); }
+    </style>
+  </head>
+  <body>
+
+    <!-- ═══════════════════════════════════════════
+         OUR WORK SECTION
+    ════════════════════════════════════════════ -->
+    <section class="section-work">
+      <div class="container">
+
+        <!-- ① HEADER sub-timeline target -->
+        <div id="workHeader">
+          <div class="work-eyebrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 19V5" stroke="#9a58ee" stroke-width="2"
+                    stroke-linecap="round"/>
+            </svg>
+            <h5>SELECTED PROJECTS</h5>
+          </div>
+          <h2 id="workHeadText">
+            Our Latest<br/>
+            <span class="grad-text">Work & Results</span>
+          </h2>
+          <p id="workSubText">
+            A curated selection of projects where strategy,
+            design, and technology converge to create real impact.
+          </p>
+        </div>
+
+        <!-- ② CARDS sub-timeline targets -->
+        <div class="row" id="workCards">
+
+          <div class="col-lg-4 col-md-6 col-12 work-card-col">
+            <div class="project-card">
+              <div class="card-thumb"
+                   style="background: linear-gradient(135deg,#1a1030,#4f2cd9)">
+                <span>🛍️</span>
+                <span class="card-badge">E-Commerce</span>
+              </div>
+              <div class="card-body-custom">
+                <h5>Lumière Store</h5>
+                <p>Premium fashion e-commerce with AR try-on and personalized recommendation engine.</p>
+                <div class="card-tags">
+                  <span class="tag">UI/UX</span>
+                  <span class="tag">Development</span>
+                  <span class="tag">Branding</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12 work-card-col">
+            <div class="project-card">
+              <div class="card-thumb"
+                   style="background: linear-gradient(135deg,#1a1030,#8d2ce2)">
+                <span>📊</span>
+                <span class="card-badge">SaaS</span>
+              </div>
+              <div class="card-body-custom">
+                <h5>Orbit Analytics</h5>
+                <p>Real-time business intelligence dashboard with predictive insights for B2B teams.</p>
+                <div class="card-tags">
+                  <span class="tag">Dashboard</span>
+                  <span class="tag">Data Viz</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12 work-card-col">
+            <div class="project-card">
+              <div class="card-thumb"
+                   style="background: linear-gradient(135deg,#2f1f4e,#d571be55)">
+                <span>🏨</span>
+                <span class="card-badge">Hospitality</span>
+              </div>
+              <div class="card-body-custom">
+                <h5>Velour Hotels</h5>
+                <p>Luxury hotel booking experience with immersive 3D room previews and smart pricing.</p>
+                <div class="card-tags">
+                  <span class="tag">Web Design</span>
+                  <span class="tag">Branding</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12 work-card-col">
+            <div class="project-card">
+              <div class="card-thumb"
+                   style="background: linear-gradient(135deg,#1a1030,#9581f9)">
+                <span>🎓</span>
+                <span class="card-badge">EdTech</span>
+              </div>
+              <div class="card-body-custom">
+                <h5>Pathfinder LMS</h5>
+                <p>Adaptive learning platform with gamification layer and instructor live tools.</p>
+                <div class="card-tags">
+                  <span class="tag">UI/UX</span>
+                  <span class="tag">Development</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12 work-card-col">
+            <div class="project-card">
+              <div class="card-thumb"
+                   style="background: linear-gradient(135deg,#2f1f4e,#4f2cd9)">
+                <span>🚀</span>
+                <span class="card-badge">Startup</span>
+              </div>
+              <div class="card-body-custom">
+                <h5>Nova Launch</h5>
+                <p>End-to-end brand identity and digital presence for a Series A fintech startup.</p>
+                <div class="card-tags">
+                  <span class="tag">Branding</span>
+                  <span class="tag">Web Design</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12 work-card-col">
+            <div class="project-card">
+              <div class="card-thumb"
+                   style="background: linear-gradient(135deg,#1a1030,#d571be)">
+                <span>🏥</span>
+                <span class="card-badge">HealthTech</span>
+              </div>
+              <div class="card-body-custom">
+                <h5>Medi Connect</h5>
+                <p>Patient-facing telemedicine app with secure video, scheduling and prescriptions.</p>
+                <div class="card-tags">
+                  <span class="tag">Mobile</span>
+                  <span class="tag">UI/UX</span>
+                  <span class="tag">Development</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /row -->
+
+        <!-- ③ CTA sub-timeline target -->
+        <div id="workCTA">
+          <button class="btn-cta">
+            View All Projects
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+              <path d="M4 12H20M20 12L16 8M20 12L16 16"
+                    stroke="#fff" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <p id="workFootNote">50+ projects delivered across 12 industries</p>
+        </div>
+
+      </div><!-- /container -->
+    </section><!-- /section-work -->
+
+
+    <!-- ═══ T-05 Debug Panel ═══ -->
+    <div class="debug-panel" id="debugPanel">
+      <h6>T-05 — Nested Timelines</h6>
+      <div class="tl-row">
+        <span class="tl-label">headerTL</span>
+        <div class="tl-bar-bg"><div class="tl-bar-fill fill-header" id="bar-header"></div></div>
+      </div>
+      <div class="tl-row">
+        <span class="tl-label">cardsTL</span>
+        <div class="tl-bar-bg"><div class="tl-bar-fill fill-cards" id="bar-cards"></div></div>
+      </div>
+      <div class="tl-row">
+        <span class="tl-label">ctaTL</span>
+        <div class="tl-bar-bg"><div class="tl-bar-fill fill-cta" id="bar-cta"></div></div>
+      </div>
+      <div class="tl-row" style="margin-top:8px;border-top:1px solid rgba(255,255,255,.08);padding-top:8px">
+        <span class="tl-label">masterTL</span>
+        <div class="tl-bar-bg"><div class="tl-bar-fill fill-master" id="bar-master"></div></div>
+      </div>
+      <button class="replay-btn" id="replayBtn">↺ Replay</button>
+    </div>
+
+
+    <!-- ═══ Scripts ═══ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
+    <script>
+    /* ════════════════════════════════════════════════════════
+       T-05  —  NESTED TIMELINES
+       ════════════════════════════════════════════════════════
+       الفكرة:
+       - كل جزء في الـ section عنده sub-timeline خاصة بيه
+         (function بترجع timeline)
+       - الـ master timeline بتجمعهم بـ tl.add()
+       ════════════════════════════════════════════════════════ */
+
+    // ─── 1. Sub-timeline: Header ───────────────────────────
+    function buildHeaderTL() {
+      const tl = gsap.timeline();
+
+      tl.from(".work-eyebrow", {
+            y: -30, opacity: 0, duration: 0.4, ease: "power3.out"
+          })
+        .from("#workHeadText", {
+            y: -40, opacity: 0, duration: 0.5, ease: "power3.out"
+          }, "-=0.2")
+        .from("#workSubText", {
+            y: -20, opacity: 0, duration: 0.4, ease: "power3.out"
+          }, "-=0.2");
+
+      return tl;
+    }
+
+    // ─── 2. Sub-timeline: Cards ────────────────────────────
+    function buildCardsTL() {
+      const tl = gsap.timeline();
+
+      tl.from(".work-card-col", {
+        y: 60,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.12,       // ← كل كارد بيظهر بعد التاني بـ 0.12s
+        ease: "power3.out",
+      });
+
+      return tl;
+    }
+
+    // ─── 3. Sub-timeline: CTA ──────────────────────────────
+    function buildCTATL() {
+      const tl = gsap.timeline();
+
+      tl.from(".btn-cta", {
+            scale: 0.85, opacity: 0, duration: 0.4, ease: "back.out(1.5)"
+          })
+        .from("#workFootNote", {
+            y: 10, opacity: 0, duration: 0.3, ease: "power2.out"
+          }, "-=0.1");
+
+      return tl;
+    }
+
+    // ─── 4. Master Timeline — بتجمع الـ 3 ──────────────────
+    const masterTL = gsap.timeline({
+      defaults: { ease: "power3.out" },
+    });
+
+    masterTL
+      .add(buildHeaderTL())          // header يبدأ أول
+      .add(buildCardsTL(), "-=0.1")  // cards تبدأ وهي overlap بسيط مع آخر الـ header
+      .add(buildCTATL(),   "-=0.1"); // cta كمان overlap بسيط
+
+
+    /* ════════════════════════════════════════════════════════
+       Debug panel — progress bars
+    ════════════════════════════════════════════════════════ */
+    const barHeader = document.getElementById("bar-header");
+    const barCards  = document.getElementById("bar-cards");
+    const barCTA    = document.getElementById("bar-cta");
+    const barMaster = document.getElementById("bar-master");
+
+    // الـ sub-timelines اللي اتضافت جوه الـ master
+    // ترتيبهم نفس ترتيب .add() فوق
+    const subTLs = masterTL.getChildren(false, false, true);
+    const headerTL = subTLs[0];
+    const cardsTL  = subTLs[1];
+    const ctaTL    = subTLs[2];
+
+    // بنـ tick كل frame عشان نحدث الـ bars
+    gsap.ticker.add(() => {
+      barHeader.style.width = (headerTL.progress() * 100) + "%";
+      barCards.style.width  = (cardsTL.progress()  * 100) + "%";
+      barCTA.style.width    = (ctaTL.progress()    * 100) + "%";
+      barMaster.style.width = (masterTL.progress() * 100) + "%";
+    });
+
+    // Replay button
+    document.getElementById("replayBtn").addEventListener("click", () => {
+      masterTL.restart();
+    });
+    </script>
+  </body>
+</html>
