@@ -1,104 +1,234 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="Section 3 - Nested Timeline/img/logoo.ico"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexora</title>
+  <link rel="icon" type="image/x-icon" href="Section 3 - Nested Timeline/img/logoo.ico" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <title>Nexora</title>
+    body {
+      background: #0d0b18;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #fff;
+    }
 
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Segoe UI", sans-serif;
+    .hero {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #6b7280;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 28px 24px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.25s, background 0.25s;
+    }
+
+    .card:hover {
+      background: rgba(108, 73, 255, 0.07);
+      border-color: rgba(108, 73, 255, 0.35);
+    }
+
+    .num {
+      font-size: 0.72rem;
+      color: #7c5cfc;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #f3f4f6;
+      line-height: 1.3;
+    }
+
+    .tasks {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .t {
+      font-size: 0.83rem;
+      color: #6b7280;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .t::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: #7c5cfc;
+    }
+
+    .btn {
+      display: block;
+      text-align: center;
+      background: #6c49ff;
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 12px;
+      border-radius: 12px;
+      text-decoration: none;
+      margin-top: auto;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn:hover {
+      background: #7d5cff;
+      transform: translateY(-2px);
+    }
+
+    /* Full-width bottom card */
+    .full {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 24px 32px;
+    }
+
+    .full-left h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .full-left p {
+      color: #6b7280;
+      font-size: 0.85rem;
+    }
+
+    .btn-full {
+      background: #6c49ff;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 13px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-full:hover {
+      background: #7d5cff;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr;
       }
 
-      body {
-        background: #9581f9;
-        min-height: 100vh;
-        display: flex;
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .full {
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: white;
+        align-items: flex-start;
       }
+    }
+  </style>
+</head>
 
-      h1 {
-        font-size: 3rem;
-        margin-bottom: 10px;
-      }
-
-      p {
-        opacity: 0.8;
-        margin-bottom: 40px;
-      }
-
-      .container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
-        width: 90%;
-        max-width: 900px;
-      }
-
-      .card {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        padding: 30px;
-        text-align: center;
-        text-decoration: none;
-        color: white;
-        transition: 0.3s ease;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      }
-
-      .card:hover {
-        transform: translateY(-10px) scale(1.05);
-        background: rgba(255, 255, 255, 0.25);
-      }
-
-      .card h2 {
-        margin-bottom: 10px;
-      }
-
-      .tag {
-        font-size: 0.8rem;
-        opacity: 0.7;
-      }
-    </style>
-  </head>
-  <body>
+<body>
+  <div class="hero">
     <h1>Nexora</h1>
     <p>GSAP Animation Showcase</p>
-
-    <div class="container">
-      <a class="card" href="./section-1/">
-        <h2>Section 1</h2>
-        <div class="tag">Intro Animation</div>
-      </a>
-
-      <a class="card" href="./section-2/">
-        <h2>Section 2</h2>
-        <div class="tag">Scroll Effects</div>
-      </a>
-
-      <a class="card" href="./section-3/">
-        <h2>Section 3</h2>
-        <div class="tag">Nested Timeline</div>
-      </a>
-
-      <a class="card" href="./full-project/">
-        <h2>Full Project</h2>
-        <div class="tag">Complete Experience</div>
-      </a>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="num">01</div>
+      <h2>Page Load Animation</h2>
+      <div class="tasks">
+        <span class="t">Logo slide + fade</span>
+        <span class="t">Nav links stagger</span>
+        <span class="t">Headline + CTA entrance</span>
+        <span class="t">Total &lt; 1.2s</span>
+      </div>
+      <a class="btn" href="./Section 1 - Page Loading/">Open Section 1</a>
     </div>
-  </body>
+    <div class="card">
+      <div class="num">02</div>
+      <h2>Modal Animation</h2>
+      <div class="tasks">
+        <span class="t">Overlay fade</span>
+        <span class="t">Modal scale 0.8 → 1</span>
+        <span class="t">Close via .reverse()</span>
+        <span class="t">paused: true on init</span>
+      </div>
+      <a class="btn" href="./Section 2 - Modal/">Open Section 2</a>
+    </div>
+    <div class="card">
+      <div class="num">03</div>
+      <h2>Nested Timelines</h2>
+      <div class="tasks">
+        <span class="t">Functions return timelines</span>
+        <span class="t">Master orchestrates subs</span>
+        <span class="t">Debug panel</span>
+      </div>
+      <a class="btn" href="./Section 3 - Nested Timeline/">Open Section 3</a>
+    </div>
+    <div class="card full">
+      <div class="full-left">
+        <div class="num">Full Project</div>
+        <h2>Complete Experience</h2>
+        <p>All concepts combined in one scene.</p>
+      </div>
+      <a class="btn-full" href="./Full Project/">Open →</a>
+    </div>
+  </div>
+</body>
+
 </html>
