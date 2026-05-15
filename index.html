@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="Section 3 - Nested Timeline/img/logoo.ico"
+    />
+
+    <title>Nexora</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        background: #9581f9;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
+
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+      }
+
+      p {
+        opacity: 0.8;
+        margin-bottom: 40px;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        width: 90%;
+        max-width: 900px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        transition: 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .card h2 {
+        margin-bottom: 10px;
+      }
+
+      .tag {
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Nexora</h1>
+    <p>GSAP Animation Showcase</p>
+
+    <div class="container">
+      <a class="card" href="./section-1/">
+        <h2>Section 1</h2>
+        <div class="tag">Intro Animation</div>
+      </a>
+
+      <a class="card" href="./section-2/">
+        <h2>Section 2</h2>
+        <div class="tag">Scroll Effects</div>
+      </a>
+
+      <a class="card" href="./section-3/">
+        <h2>Section 3</h2>
+        <div class="tag">Nested Timeline</div>
+      </a>
+
+      <a class="card" href="./full-project/">
+        <h2>Full Project</h2>
+        <div class="tag">Complete Experience</div>
+      </a>
+    </div>
+  </body>
+</html>
