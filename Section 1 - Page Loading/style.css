@@ -1,7 +1,3 @@
-body {
-    overflow-x: hidden;
-}
-
 .nav-item.active .nav-link {
     display: flex;
     flex-direction: column;
@@ -23,6 +19,11 @@ body {
     margin-top: 1px;
 }
 
+.brand-icon{
+    width: 28px;
+    height: 28px;
+}
+
 .NexoraIcon,
 .nav-item,
 .Text1,
@@ -32,3 +33,5 @@ body {
 .Brands {
     visibility: hidden;
 }
+
+
